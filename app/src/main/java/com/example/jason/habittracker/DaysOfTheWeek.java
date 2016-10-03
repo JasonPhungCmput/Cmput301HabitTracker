@@ -31,7 +31,7 @@ import java.util.ArrayList;
     Class that allows which dates to be checked from a pop-up screen
  */
 public class DaysOfTheWeek extends DialogFragment {
-    ArrayList<String> daysList = new ArrayList<>();
+    private ArrayList<String> daysList = new ArrayList<>();
     public Dialog onCreateDialog(Bundle savedInstanceState){
         // Use the Builder class for convenient dialog construction
         final String[] saveDays = getResources().getStringArray(R.array.daysintheweek);
@@ -64,7 +64,4 @@ public class DaysOfTheWeek extends DialogFragment {
         return daysList;
     }
 
-    public void setDaysList(ArrayList<String> daysList) {
-        this.daysList = daysList;
-    }
 }

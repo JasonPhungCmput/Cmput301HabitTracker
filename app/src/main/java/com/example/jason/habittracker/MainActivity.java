@@ -29,8 +29,7 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String FILENAME = "file.sav";
-    private HabitList habitListsTest;
+    private HabitList habitLists;
     public static ListView habitListView;
 
     // Call when first activity made
@@ -56,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // Load habits to display
-        habitListsTest = new HabitList();
-        habitListsTest = FileInputOutput.loadFromFile(FILENAME, habitListsTest, this);
-        final HabitAdapter adapter = new HabitAdapter(this, habitListsTest.getHabitList());
+        habitLists = new HabitList();
+        habitLists = FileInputOutput.loadFromFile("file.sav", habitLists, this);
+        final HabitAdapter adapter = new HabitAdapter(this, habitLists.getHabitList());
         habitListView.setAdapter(adapter);
 
         habitListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
