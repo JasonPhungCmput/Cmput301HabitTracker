@@ -1,3 +1,18 @@
+/*
+   Copyright 2016 Jason Phung
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
 package com.example.jason.habittracker;
 
 import android.content.Context;
@@ -14,14 +29,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
-import java.util.Date;
 
 /**
  * Created by Jason on 02/10/2016.
  */
+/*
+    FileInputOutput class made to allow other classes in habit tracker to save and load data files
+    The code is from lonelyTwitter in the labs
+*/
 public class FileInputOutput {
-
-    //private HabitList listOfHabits;
+    // This method is to load from the file that stores all the habits
     public static HabitList loadFromFile(String FILENAME, HabitList listOfHabits, Context context  ) {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
@@ -30,7 +47,6 @@ public class FileInputOutput {
             Gson gson = new Gson();
 
             // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            //Type listType = new TypeToken<ArrayList<Habit>>(){}.getType();
             Type listType = new TypeToken<HabitList>(){}.getType();
 
             listOfHabits = gson.fromJson(in,listType);
@@ -38,7 +54,6 @@ public class FileInputOutput {
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            //habitList = new ArrayList<Habit>();
             listOfHabits = new HabitList();
             return listOfHabits;
         } catch (IOException e) {
@@ -47,6 +62,7 @@ public class FileInputOutput {
         }
     }
 
+    // This method differs from the above because the habit history is stored in another file
     public static LogDates loadFromLogFile(String FILENAME, LogDates date, Context context  ) {
         try {
             FileInputStream fis = context.openFileInput(FILENAME);
@@ -55,7 +71,6 @@ public class FileInputOutput {
             Gson gson = new Gson();
 
             // Code from http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            //Type listType = new TypeToken<ArrayList<Habit>>(){}.getType();
             Type listType = new TypeToken<LogDates>(){}.getType();
 
             date = gson.fromJson(in,listType);
@@ -63,9 +78,7 @@ public class FileInputOutput {
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            //habitList = new ArrayList<Habit>();
             date = new LogDates();
-            //Date newDate[] = date;
             return date;
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -73,6 +86,7 @@ public class FileInputOutput {
         }
     }
 
+    // Method to save to habit file
     public static void saveInFile(String FILENAME, HabitList listOfHabits, Context context) {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME,
@@ -93,6 +107,8 @@ public class FileInputOutput {
             throw new RuntimeException();
         }
     }
+
+    // This method is for habit completions
     public static void saveInLogFile(String FILENAME, LogDates date, Context context) {
         try {
             FileOutputStream fos = context.openFileOutput(FILENAME,
